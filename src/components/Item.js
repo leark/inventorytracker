@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-function Item() {
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+function Item(props) {
+  const cardStyles = {
+    width: '18rem',
+    marginBottom: '10px',
+  };
   return (
     <React.Fragment>
-      <div>
-        <h3>Item Name</h3>
-      </div>
+      <Card style={cardStyles}>
+        <Card.Img variant='top' />
+        <Card.Body>
+          <Card.Title>{props.name}</Card.Title>
+          <Card.Text>Item description</Card.Text>
+        </Card.Body>
+        <Button variant='primary'>Sell 1 Quantity</Button>
+      </Card>
     </React.Fragment>
   );
 }
