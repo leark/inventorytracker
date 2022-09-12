@@ -13,16 +13,16 @@ class StoreControl extends React.Component {
       selectedItem: null,
       itemList: [
         {
-          name: 'Item1',
+          name: 'Chocolate Delight',
           quantity: 3,
           quantityUnit: 'lbs',
           origin: 'Italy',
           roast: 'Dark',
-          price: 12,
+          price: 10,
           id: '1001',
         },
         {
-          name: 'Item2',
+          name: 'Acidic Adventure',
           quantity: 8,
           quantityUnit: 'lbs',
           origin: 'Ethiopia',
@@ -31,16 +31,16 @@ class StoreControl extends React.Component {
           id: '1002',
         },
         {
-          name: 'Item3',
+          name: 'Complex Aroma',
           quantity: 2,
           quantityUnit: 'lbs',
           origin: 'Colombia',
           roast: 'Light',
-          price: 12,
+          price: 11,
           id: '1003',
         },
         {
-          name: 'Item4',
+          name: 'Wild Roast',
           quantity: 4,
           quantityUnit: 'lbs',
           origin: 'Kenya',
@@ -49,12 +49,12 @@ class StoreControl extends React.Component {
           id: '1004',
         },
         {
-          name: 'Item5',
+          name: 'Aloha Kona',
           quantity: 7,
           quantityUnit: 'lbs',
           origin: 'Hawaii',
           roast: 'Medium',
-          price: 12,
+          price: 14,
           id: '1005',
         },
       ],
@@ -86,7 +86,6 @@ class StoreControl extends React.Component {
     const selectedTicket = this.state.itemList.filter(
       (ticket) => ticket.id === id
     )[0];
-    console.log(selectedTicket);
     this.setState({
       selectedItem: selectedTicket,
       newItemFormVisible: false,
@@ -94,11 +93,40 @@ class StoreControl extends React.Component {
   };
 
   handleSellingItem = (id) => {
-    // setstate
-    // also update totalsales
-    const item = this.state.itemList.filter((item) => item.id === id)[0];
-    const newItem = { ...item };
-    console.log('You just sold something!');
+    let newTotalSales = this.state.totalSales;
+    const newItemList = this.state.itemList.map((item) => {
+      if (item.id === id) {
+        const quantity = item.quantity;
+        if (quantity > 0) {
+          const newQuantity = quantity - 1;
+          newTotalSales += item.price;
+          return { ...item, quantity: newQuantity };
+        }
+      }
+      return item;
+    });
+    this.setState({
+      itemList: newItemList,
+      totalSales: newTotalSales,
+    });
+  };
+
+  handleAddInventory = (id) => {
+    const newItemList = this.state.itemList.map((item) => {
+      if (item.id === id) {
+        if (item.quantityUnit === 'lbs') {
+          const newQuantity = item.quantity + 130;
+          return { ...item, quantity: newQuantity };
+        } else if (item.quantity === 'kg') {
+          const newQuantity = item.quantity + 59;
+          return { ...item, quantity: newQuantity };
+        }
+      }
+      return item;
+    });
+    this.setState({
+      itemList: newItemList,
+    });
   };
 
   render() {
@@ -118,6 +146,7 @@ class StoreControl extends React.Component {
           itemList={this.state.itemList}
           sellItem={this.handleSellingItem}
           onItemSelection={this.handleChangingSelectedItem}
+          addBurlap={this.handleAddInventory}
         />
       );
       buttonText = 'Add New Item';
@@ -127,6 +156,7 @@ class StoreControl extends React.Component {
     };
     return (
       <React.Fragment>
+        <h1>Total Sales: ${this.state.totalSales}</h1>
         {currentVisibleState}
         <Container className='text-center'>
           <Button

@@ -22,6 +22,7 @@ function ItemList(props) {
                 price={item.price}
                 sellItem={props.sellItem}
                 whenItemClicked={props.onItemSelection}
+                addBurlap={props.addBurlap}
               />
             </Col>
           ))}
@@ -35,6 +36,7 @@ ItemList.propTypes = {
   itemList: PropTypes.array,
   sellItem: PropTypes.func,
   onItemSelection: PropTypes.func,
+  addBurlap: PropTypes.func,
 };
 
 export default ItemList;
