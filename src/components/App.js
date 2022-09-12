@@ -1,14 +1,15 @@
 import React from 'react';
 import Header from './Header';
 import StoreControl from './StoreControl';
+import { Container } from 'react-bootstrap';
 
 function App() {
   return (
     <React.Fragment>
-      <div className='container'>
+      <Container>
         <Header />
         <StoreControl />
-      </div>
+      </Container>
     </React.Fragment>
   );
 }

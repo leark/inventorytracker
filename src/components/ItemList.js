@@ -1,21 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Item from './Item';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 function ItemList(props) {
   return (
     <React.Fragment>
-      {props.itemList.map((item, index) => (
-        <div key={index}>
-          <Item name={item.name} />
-        </div>
-      ))}
+      <Container>
+        <Row className='g-4'>
+          {props.itemList.map((item, index) => (
+            <Col key={index}>
+              <Item
+                id={item.id}
+                name={item.name}
+                quantity={item.quantity}
+                quantityUnit={item.quantityUnit}
+                origin={item.origin}
+                roast={item.roast}
+                price={item.price}
+                sellItem={props.sellItem}
+                whenItemClicked={props.onItemSelection}
+              />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </React.Fragment>
   );
 }
 
 ItemList.propTypes = {
   itemList: PropTypes.array,
+  sellItem: PropTypes.func,
+  onItemSelection: PropTypes.func,
 };
 
 export default ItemList;
