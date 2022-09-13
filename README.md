@@ -17,9 +17,10 @@ A simple coffee inventory tracker.
 
 ## Component Tree
 
-![component tree](inventorytracker-react.drawio.png)
+![component tree](inventorytracker-react.drawio_v2.png)
 
 ## Setup/Installation Requirements
+
 _Requires console application such as Git Bash, Terminal, or PowerShell_
 
 1. Open Git Bash or PowerShell if on Windows and Terminal if on Mac
